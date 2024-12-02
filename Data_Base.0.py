@@ -219,7 +219,7 @@ class DataBase:
 
     def all_targer_table(self, table_name: str) -> list[Book]:
         """
-        Возвращает все элемнты данной таблицы из базы данных.
+        Возвращает все элемнты данной таблицы(написать имя) из базы данных.
         """
         session = self.Session()
         try:
