@@ -166,7 +166,7 @@ class DataBase:
             print(f"Error deleting book: {e}")
         finally:
             session.close()
-
+    
     def get_book_by_name(self, book_name: str) -> list[Book]:
         """
         Находит книги по названию.
@@ -175,12 +175,28 @@ class DataBase:
         try:
             books_by_name = (
                 session.query(Book)
-                .join(Book.genres)
                 .filter(Book.name.ilike(f"%{book_name}%"))
                 .options(joinedload(Book.genres), joinedload(Book.authors))
                 .all()
             )
             return books_by_name if books_by_name else []
+        finally:
+            session.close()
+
+    def get_books_by_author(self, author_name: str) -> list[Book]:
+        """
+        Находит книги по автору.
+        """
+        session = self.Session()
+        try:
+            books_by_author = (
+                session.query(Book)
+                .join(Book.authors)
+                .filter(Author.name.ilike(f"%{author_name}%"))
+                .options(joinedload(Book.genres), joinedload(Book.authors))
+                .all()
+            )
+            return books_by_author if books_by_author else []
         finally:
             session.close()
 
@@ -201,45 +217,34 @@ class DataBase:
         finally:
             session.close()
 
-    def list_all_books(self) -> list[Book]:
+    def all_targer_table(self, table_name: str) -> list[Book]:
         """
-        Возвращает все книги из базы данных.
-        """
-        session = self.Session()
-        try:
-            return (
-                session.query(Book)
-                .options(joinedload(Book.genres), joinedload(Book.authors))
-                .all()
-            )
-        finally:
-            session.close()
-
-    def list_all_genres(self) -> list[Genre]:
-        """
-        Возвращает все жанры из базы данных.
+        Возвращает все элемнты данной таблицы из базы данных.
         """
         session = self.Session()
         try:
-            return (
-                session.query(Genre)
-                .options(joinedload(Genre.books))
-                .all()
-            )
-        finally:
-            session.close()
-    
-    def list_all_author(self) -> list[Genre]:
-        """
-        Возвращает все жанры из базы данных.
-        """
-        session = self.Session()
-        try:
-            return (
-                session.query(Author)
-                .options(joinedload(Author.books))
-                .all()
-            )
+            match table_name:
+                case "books":
+                    return (
+                        session.query(Book)
+                        .options(joinedload(Book.genres), joinedload(Book.authors))
+                        .all()
+                    )
+                case "genres":
+                    return (
+                        session.query(Genre)
+                        .options(joinedload(Genre.books))
+                        .all()
+                    )
+                case "authors":
+                    return (
+                        session.query(Genre)
+                        .options(joinedload(Genre.books))
+                        .all()
+                    )
+                case _:
+                    print(f"Table with name {table_name} doesn't exist")
+                    return []
         finally:
             session.close()
 
