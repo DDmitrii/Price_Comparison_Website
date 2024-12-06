@@ -27,17 +27,30 @@ class Book(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
     price = Column(Float, nullable=False)
+    link = Column(String, nullable=False)
+    image_link = Column(String, nullable=False)
+    website_name = Column(String, nullable=False)
     genres = relationship("Genre", secondary=book_genres, back_populates="books")
     authors = relationship("Author", secondary=book_authors, back_populates="books")
 
-    def __init__(self, name: str, price: float):
+    def __init__(self, name: str, price: float, link: str, image_link: str, website_name: str):
         self.name = name
         self.price = price
+        self.link = link
+        self.image_link = image_link
+        self.website_name = website_name
 
     def __repr__(self):
         genres_list = [genre.name for genre in self.genres]
         authors_list = [author.name for author in self.authors]
-        return f"Book(id={self.id}, name='{self.name}', price={self.price}, genres={genres_list}, authors={authors_list})"
+        return f"""
+                Book(id={self.id}, name='{self.name}', price={self.price},\n
+                link='{self.link}',\n
+                image_link='{self.image_link}',\n
+                website_name='{self.website_name}',\n
+                genres={genres_list},\n
+                authors={authors_list})
+                """
 
 
 # Класс для таблицы жанров
@@ -257,5 +270,3 @@ class DataBase:
 if __name__ == "__main__":
     # Создаем базу данных
     db = DataBase()
-
-    # Загрузить данные из парсеров

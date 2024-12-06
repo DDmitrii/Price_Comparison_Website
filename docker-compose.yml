@@ -14,18 +14,18 @@ services:
     networks:
       - books_network
 
-  bot:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: telegram_bot_container
-    environment:
-      - BOT_TOKEN=7828869023:AAHv5nHMayfWrHgBxM2u4uI7G5-hHN6JSK8
-      - DB_URL=postgresql://user:password@db:5432/books_db
-    depends_on:
-      - db
-    networks:
-      - books_network
+  # bot:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: telegram_bot_container
+  #   environment:
+  #     - BOT_TOKEN=7828869023:AAHv5nHMayfWrHgBxM2u4uI7G5-hHN6JSK8
+  #     - DB_URL=postgresql://user:password@db:5432/books_db
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - books_network
 
 volumes:
   pg_data:
