@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-class BookItem:
+class LivelibBook:
     name = ''
     tags = [
         """
@@ -32,4 +32,4 @@ def getTags(query):
     tags = [i.text for i in item.select_one('.object-info').select('.label-genre')]
     liveliblink = item.select('.ll-redirect a')[0]['href']
     rating = item.select('.stars-color-orange')[0].text
-    return BookItem(name, author,image, tags, liveliblink, rating)
+    return LivelibBook(name, author,image, tags, liveliblink, rating)

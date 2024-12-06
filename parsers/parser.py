@@ -1,7 +1,7 @@
 import scrapy
 from Data_Base import db
 from Data_Base import Book
-from livelib import getTags
+from livelib import getLivelib
 
 class BookItem(scrapy.Item):
     name = scrapy.Field()
@@ -10,14 +10,15 @@ class BookItem(scrapy.Item):
     link = scrapy.Field()
     image = scrapy.Field()
     author = scrapy.Field()
+    websitename = scrapy.Field()
 
 class ParsePipeline:
   def process_item(self, item : BookItem, spider):
-    tags = getTags(item['name'])
+    livelibbook = getLivelib(item['name'])
     db.add_book(
       Book(name = item['name'],
             price = item['fullprice']),
-            genres= tags,
+            genres= livelibbook.tags,
             authors = item['author']
     )
     return item
