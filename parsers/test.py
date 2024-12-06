@@ -3,6 +3,8 @@ from mif import MIFSpider
 from chitaigorod import CGSpider
 from livelib import getTags
 from labirint import LBSpider
+
+
 process = CrawlerProcess()
 process.crawl(LBSpider)
 process.start()
