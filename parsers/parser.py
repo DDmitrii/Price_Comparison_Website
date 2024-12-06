@@ -17,7 +17,8 @@ class ParsePipeline:
     livelibbook = getLivelib(item['name'])
     db.add_book(
       Book(name = item['name'],
-            price = item['fullprice']),
+            price = item['discountedprice'],
+            rating = livelibbook.rating),
             genres= livelibbook.tags,
             authors = item['author']
     )
