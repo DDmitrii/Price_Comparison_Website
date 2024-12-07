@@ -95,7 +95,7 @@ class DataBase:
         Base.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine)
     
-    def add_genre(self, session, genre_name: str):
+    def add_genre_through_book(self, session, genre_name: str):
         """
         Добавляет жанр в базу данных если он не существует.
         """
@@ -106,7 +106,7 @@ class DataBase:
             print(f"Genre '{genre_name}' added.")
         return genre
 
-    def add_author(self, session, author_name: str):
+    def add_author_through_book(self, session, author_name: str):
         """
         Добавляет автора в базу данных если он не существует.
         """
@@ -130,12 +130,12 @@ class DataBase:
                 print(f"Book '{book.name}' already exists.")
                 
                 for genre_name in genres:
-                    genre = self.add_genre(session, genre_name)
+                    genre = self.add_genre_through_book(session, genre_name)
                     if genre not in existing_book.genres:
                         existing_book.genres.append(genre)
                 
                 for author_name in authors:
-                    author = self.add_author(session, author_name)
+                    author = self.add_author_through_book(session, author_name)
                     if author not in existing_book.authors:
                         existing_book.authors.append(author)
                 session.commit()
@@ -156,7 +156,7 @@ class DataBase:
             
         except Exception as e:
             session.rollback()
-            print(f"Error adding book: {e}")
+            raise Exception(f"Error adding book: {e}")
         finally:
             session.close()
 
@@ -180,7 +180,7 @@ class DataBase:
             print(f"Book with name {book_name} deleted successfully.")
         except Exception as e:
             session.rollback()
-            print(f"Error deleting book: {e}")
+            raise Exception(f"Error deleting book: {e}")
         finally:
             session.close()
     
@@ -271,15 +271,8 @@ class DataBase:
         finally:
             session.close()
 
-# if __name__ == "__main__":
-#     # Создаем базу данных
-#     db = DataBase()
-
-# "sqlite:///books.db" в виде файлика на компе
-# "postgresql://user:password@localhost:5432/books_db" дб на докере docker
-db = DataBase()
-process = CrawlerProcess()
-CGSpider.set_pages_amount(1)
-CGSpider.set_pipeline("parser.DBPipeline")
-process.crawl(CGSpider)
-process.start()
+if __name__ == "__main__":
+    # Создаем базу данных
+    # "sqlite:///books.db" в виде файлика на компе
+    # "postgresql://user:password@localhost:5432/books_db" дб на докере docker
+    db = DataBase("sqlite:///books.db")
