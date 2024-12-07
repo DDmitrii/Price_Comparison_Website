@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 class CGSpider(scrapy.Spider):
   name = "chitaigorod parser"
+  querylink = 'https://www.chitai-gorod.ru/search?phrase='
   baselink = 'https://www.chitai-gorod.ru/catalog/books-18030'
   pagelink = 'https://www.chitai-gorod.ru/catalog/books-18030?page='
   start_urls = [baselink]
@@ -20,7 +21,8 @@ class CGSpider(scrapy.Spider):
     CGSpider.custom_settings['ITEM_PIPELINES'] = {
         pipeline_name: 300,
     }
-
+  def set_query(query):
+    CGSpider.start_urls = [CGSpider.querylink + query.replace(' ', "%20")]
   def set_pages_amount(n):
     if n <= 1:
       CGSpider.start_urls = [CGSpider.baselink]

@@ -15,7 +15,7 @@ class BookItem(scrapy.Item):
     websitename = scrapy.Field()
 
 '''
-class ParsePipeline:
+class DBPipeline:
   def process_item(self, item : BookItem, spider):
     livelibbook = getLivelib(item['name'])
     db.add_book(
