@@ -1,6 +1,6 @@
-from Data_Base import Book
-from bookitem import BookItem
-from livelib import getLivelib
+from .data_base.Data_Base import Book
+from .bookitem import BookItem
+from .livelib import getLivelib
 
 import csv
 

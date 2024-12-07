@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Data_Base import DataBase, Book, Genre, Author  # Замените your_module на имя вашего файла
+from parser.data_base.Data_Base import DataBase, Book, Genre, Author  # Замените your_module на имя вашего файла
 
 
 def test_add_book():

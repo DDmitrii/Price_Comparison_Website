@@ -1,7 +1,7 @@
-from Data_Base import DataBase
+from parser.data_base.Data_Base import DataBase
 from scrapy.crawler import CrawlerProcess
-from chitaigorod import CGSpider
-from Bookparser import DBPipeline
+from parser.chitaigorod import CGSpider
+from parser.Bookparser import DBPipeline
 
 db = DataBase("sqlite:///books.db")
 

@@ -1,4 +1,4 @@
-from bookitem import BookItem
+from .bookitem import BookItem
 import scrapy
 from bs4 import BeautifulSoup
 
