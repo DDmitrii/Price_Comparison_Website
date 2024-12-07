@@ -22,10 +22,17 @@ class LivelibBook:
 
 def getLivelib(query):
     selector = '.aggbook-listview-biglist .object-edition'
-    baselink = 'https://livelib.ru/find/books/' 
-    response = requests.get(baselink + query.replace(" ", "+")) 
+    baselink = 'https://livelib.ru/find/books/'
+    try:
+        response = requests.get(baselink + query.replace(" ", "+"), timeout = 1) 
+    except requests.exceptions.Timeout:
+        print("Timeout")
+        return None
     soup = BeautifulSoup(response.text, 'lxml')
-    item = soup.select(selector)[0]
+    selected = soup.select(selector)
+    if len(selected) == 0:
+        return None
+    item = selected[0]
     name = item.select('.brow-title .title')[0].text
     author = item.select('.object-info .description')[0].text
     image = item.select('.ll-redirect .object-cover')[0]['style'][15:-12]

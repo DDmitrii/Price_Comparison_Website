@@ -1,6 +1,6 @@
 from Data_Base0 import Book
 from bookitem import BookItem
-#from livelib import getLivelib
+from livelib import getLivelib
 
 import csv
 
@@ -18,7 +18,10 @@ class DBPipeline:
   def set_db(db):
     DBPipeline.db = db
   def process_item(self, item : BookItem, spider):
-    # livelibbook = getLivelib(item['name'])
+    tags = ""
+    livelibbook = getLivelib(item['name'])
+    if livelibbook is not None:
+      tags = livelibbook.tags
     DBPipeline.db.add_book(
       Book(name = item['name'],
             price = item['discountedprice'],
@@ -27,8 +30,7 @@ class DBPipeline:
             image_link = item['image'],
             website_name = item['websitename']
             ),
-            # genres= livelibbook.tags,
-            genres = ["Фантастика"],
+            genres= tags,
             authors = item['author'].split(',')
     )
     return item
