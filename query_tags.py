@@ -1,4 +1,8 @@
 from chitaigorod import CGSpider
 from livelib import getLivelib
 
-print(getLivelib("Круть").tags)
+a = getLivelib("Круть")
+if a is None:
+    print("Не спарсилось")
+else:
+    print(a.tags)
