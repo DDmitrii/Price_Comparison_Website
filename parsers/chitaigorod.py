@@ -3,29 +3,29 @@ import csv
 import scrapy
 from bs4 import BeautifulSoup
 
-class CGPipeline:
-  def open_spider(self, spider):
-    self.file = open('CG.csv', 'w', newline='', encoding='utf-8')
-    self.writer = csv.writer(self.file)
-    self.writer.writerow(['Название', 'Автор','Цена со скидкой', 'Цена без скидки', 'Ссылка', 'Картинка'])
-
-  def close_spider(self, spider):
-    self.file.close()
-
-  def process_item(self, item, spider):
-    self.writer.writerow([item['name'], item['author'], item['discountedprice'], item['fullprice'], item['link'], item['image']])
-    return item
-
 class CGSpider(scrapy.Spider):
   name = "chitaigorod parser"
-  start_urls = ['https://www.chitai-gorod.ru/catalog/books-18030']# + ['https://www.chitai-gorod.ru/catalog/books-18030?page=' + str(i) for i in range(1,10)]
+  baselink = 'https://www.chitai-gorod.ru/catalog/books-18030'
+  pagelink = 'https://www.chitai-gorod.ru/catalog/books-18030?page='
+  start_urls = [baselink]
   custom_settings = {
       'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
       'DOWNLOAD_DELAY': 1,
       'ITEM_PIPELINES': {
-        'chitaigorod.CGPipeline': 300,
+        'parser.CSVPipeline': 300,
       }
   }
+
+  def set_pipeline(pipeline_name):
+    CGSpider.custom_settings['ITEM_PIPELINES'] = {
+        pipeline_name: 300,
+    }
+
+  def set_pages_amount(n):
+    if n <= 1:
+      CGSpider.start_urls = [CGSpider.baselink]
+    else:
+      CGSpider.start_urls = [CGSpider.baselink] + [CGSpider.pagelink + str(i) for i in range(2,n+1)]
 
   def parse(self, response):
     selector = '.products-list .product-card'
