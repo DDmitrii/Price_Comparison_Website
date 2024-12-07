@@ -274,6 +274,9 @@ class DataBase:
 # if __name__ == "__main__":
 #     # Создаем базу данных
 #     db = DataBase()
+
+# "sqlite:///books.db" в виде файлика на компе
+# "postgresql://user:password@localhost:5432/books_db" дб на докере docker
 db = DataBase()
 process = CrawlerProcess()
 CGSpider.set_pages_amount(1)
