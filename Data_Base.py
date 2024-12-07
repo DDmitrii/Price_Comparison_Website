@@ -143,11 +143,11 @@ class DataBase:
 
             # Если книга не существует, то создаем её с жанрами и авторами
             for genre_name in genres:
-                genre = self.add_genre(session, genre_name)
+                genre = self.add_genre_through_book(session, genre_name)
                 book.genres.append(genre)
 
             for author_name in authors:
-                author = self.add_author(session, author_name)
+                author = self.add_author_through_book(session, author_name)
                 book.authors.append(author)
 
             session.add(book)
