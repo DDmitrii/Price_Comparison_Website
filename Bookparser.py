@@ -29,7 +29,7 @@ class DBPipeline:
             ),
             # genres= livelibbook.tags,
             genres = ["Фантастика"],
-            authors = item['author']
+            authors = item['author'].split(',')
     )
     return item
 

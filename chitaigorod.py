@@ -51,7 +51,7 @@ class CGSpider(scrapy.Spider):
         item['discountedprice'] = row['data-chg-product-price']
       else:
         item['discountedprice'] = item['fullprice']
-      item['link'] = "chitai-gorod.ru/" + links[0]['href']
+      item['link'] = "chitai-gorod.ru" + links[0]['href']
       parsed += 1
       item['websitename'] = "chitay-gorod"
       yield item

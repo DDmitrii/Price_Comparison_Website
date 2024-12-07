@@ -61,7 +61,7 @@ class Genre(Base):
     __tablename__ = "genres"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, unique=True, nullable=False)
+    name = Column(String, unique=False, nullable=False)
     books = relationship("Book", secondary=book_genres, back_populates="genres")
 
     def __init__(self, name: str):
@@ -75,7 +75,7 @@ class Author(Base):
     __tablename__ = "authors"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, unique=True, nullable=False)
+    name = Column(String, unique=False, nullable=False)
     books = relationship("Book", secondary=book_authors, back_populates="authors")
 
     def __init__(self, name: str):

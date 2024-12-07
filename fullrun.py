@@ -11,3 +11,5 @@ DBPipeline.set_db(db)
 CGSpider.set_pages_amount(1)
 process.crawl(CGSpider)
 process.start()
+
+print(db.get_book_by_name("Круть"))
