@@ -3,7 +3,7 @@ from scrapy.crawler import CrawlerProcess
 from chitaigorod import CGSpider
 from Bookparser import DBPipeline
 
-db = DataBase()
+db = DataBase("sqlite:///books.db")
 
 process = CrawlerProcess()
 CGSpider.set_pipeline(DBPipeline)
