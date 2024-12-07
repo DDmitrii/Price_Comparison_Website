@@ -1,7 +1,7 @@
 from scrapy.crawler import CrawlerProcess
 from sqlalchemy import create_engine, Column, Integer, String, Float, Table, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, sessionmaker, joinedload
+from sqlalchemy.orm import relationship, sessionmaker, joinedload, declarative_base
 
 from chitaigorod import CGSpider
 
