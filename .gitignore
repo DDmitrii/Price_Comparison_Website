@@ -1,2 +1,10 @@
 BooksCSV.csv
 books.db
+__pycache__/bookitem.cpython-310.pyc
+__pycache__/Bookparser.cpython-310.pyc
+__pycache__/chitaigorod.cpython-310.pyc
+__pycache__/Data_Base.cpython-310.pyc
+__pycache__/initial_parse.cpython-310.pyc
+__pycache__/labirint.cpython-310.pyc
+__pycache__/livelib.cpython-310.pyc
+books.db
