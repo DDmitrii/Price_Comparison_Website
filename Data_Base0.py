@@ -86,7 +86,7 @@ class Author(Base):
 
 # Класс для управления базой данных
 class DataBase:
-    def __init__(self, db_url="sqlite:///books.db"):
+    def __init__(self, db_url: str):
         """
         Инициализация базы данных и создание таблиц.
         """
@@ -270,6 +270,8 @@ class DataBase:
         finally:
             session.close()
 
-# if __name__ == "__main__":
-#     # Создаем базу данных
-#     db = DataBase()
+if __name__ == "__main__":
+    # Создаем базу данных
+    # "sqlite:///books.db" в виде файлика на компе
+    # "postgresql://user:password@localhost:5432/books_db" дб на докере docker
+    db = DataBase()

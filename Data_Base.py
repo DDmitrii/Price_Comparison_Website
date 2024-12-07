@@ -87,7 +87,7 @@ class Author(Base):
 
 # Класс для управления базой данных
 class DataBase:
-    def __init__(self, db_url="postgresql://user:password@localhost:5432/books_db"):
+    def __init__(self, db_url: str):
         """
         Инициализация базы данных и создание таблиц.
         """
