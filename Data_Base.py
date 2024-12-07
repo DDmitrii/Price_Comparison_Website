@@ -240,7 +240,7 @@ class DataBase:
         """
         pass
 
-    def all_targer_table(self, table_name: str) -> list[Book]:
+    def all_target_table(self, table_name: str) -> list[Book]:
         """
         Возвращает все элемнты данной таблицы(написать имя) из базы данных.
         """
