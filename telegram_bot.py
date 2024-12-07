@@ -1,5 +1,5 @@
 import telebot
-from fullrun import db
+from initial_parse import db
 
 # Инициализация бота
 BOT_TOKEN = '7828869023:AAHv5nHMayfWrHgBxM2u4uI7G5-hHN6JSK8'

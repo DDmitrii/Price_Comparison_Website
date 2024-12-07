@@ -1,8 +1,7 @@
 from scrapy.crawler import CrawlerProcess
+from .. import chitaigorod
 from chitaigorod import CGSpider
-
 process = CrawlerProcess()
 CGSpider.set_query("Атлант Расправил Плечи")
-#BukvoedSpider.set_pipeline("parser.DBPipeline")
 process.crawl(CGSpider)
 process.start()

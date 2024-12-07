@@ -1,18 +1,8 @@
-from Data_Base0 import Book
+from Data_Base import Book
 from bookitem import BookItem
 from livelib import getLivelib
 
 import csv
-
-# class BookItem(scrapy.Item):
-#     name = scrapy.Field()
-#     discountedprice = scrapy.Field()
-#     fullprice = scrapy.Field()
-#     link = scrapy.Field()
-#     image = scrapy.Field()
-#     author = scrapy.Field()
-#     websitename = scrapy.Field()
-
 
 class DBPipeline:
   def set_db(db):
@@ -26,7 +16,7 @@ class DBPipeline:
       Book(name = item['name'],
             price = item['discountedprice'],
             # rating = livelibbook.rating
-            book_link = item['link'],
+            link = item['link'],
             image_link = item['image'],
             website_name = item['websitename']
             ),
