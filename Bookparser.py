@@ -1,7 +1,6 @@
-from Data_Base import db
-from Data_Base import Book
+from Data_Base0 import Book
 from bookitem import BookItem
-from livelib import getLivelib
+#from livelib import getLivelib
 
 import csv
 
@@ -16,13 +15,15 @@ import csv
 
 
 class DBPipeline:
+  def set_db(db):
+    DBPipeline.db = db
   def process_item(self, item : BookItem, spider):
     # livelibbook = getLivelib(item['name'])
-    db.add_book(
+    DBPipeline.db.add_book(
       Book(name = item['name'],
             price = item['discountedprice'],
             # rating = livelibbook.rating
-            link = item['link'],
+            book_link = item['link'],
             image_link = item['image'],
             website_name = item['websitename']
             ),
@@ -31,7 +32,6 @@ class DBPipeline:
             authors = item['author']
     )
     return item
-
 
 class CSVPipeline:
   def open_spider(self, spider):
