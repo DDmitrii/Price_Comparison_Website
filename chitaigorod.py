@@ -1,5 +1,4 @@
-from parser import BookItem
-import csv
+from bookitem import BookItem
 import scrapy
 from bs4 import BeautifulSoup
 

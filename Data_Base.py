@@ -1,6 +1,10 @@
+from scrapy.crawler import CrawlerProcess
 from sqlalchemy import create_engine, Column, Integer, String, Float, Table, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker, joinedload
+
+from chitaigorod import CGSpider
+
 
 Base = declarative_base()
 
@@ -230,7 +234,7 @@ class DataBase:
         finally:
             session.close()
     
-    def get_similar_books():
+    def get_similar_books(self):
         """
         Получить похожие книги на данную.
         """
@@ -267,6 +271,12 @@ class DataBase:
         finally:
             session.close()
 
-if __name__ == "__main__":
-    # Создаем базу данных
-    db = DataBase()
+# if __name__ == "__main__":
+#     # Создаем базу данных
+#     db = DataBase()
+db = DataBase()
+process = CrawlerProcess()
+CGSpider.set_pages_amount(1)
+CGSpider.set_pipeline("parser.DBPipeline")
+process.crawl(CGSpider)
+process.start()

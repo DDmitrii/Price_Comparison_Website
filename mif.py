@@ -1,5 +1,4 @@
 from parser import BookItem
-import csv
 import scrapy
 from bs4 import BeautifulSoup
 
