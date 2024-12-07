@@ -20,9 +20,9 @@ class LivelibBook:
         self.liveliblink = liveliblink
         self.rating = rating
 
-def getTags(query):
+def getLivelib(query):
     selector = '.aggbook-listview-biglist .object-edition'
-    baselink = 'https://livelib.ru/find/books/'
+    baselink = 'https://livelib.ru/find/books/' 
     response = requests.get(baselink + query.replace(" ", "+")) 
     soup = BeautifulSoup(response.text, 'lxml')
     item = soup.select(selector)[0]

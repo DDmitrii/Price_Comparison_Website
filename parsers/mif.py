@@ -3,19 +3,6 @@ import csv
 import scrapy
 from bs4 import BeautifulSoup
 
-class MIFPipeline:
-  def open_spider(self, spider):
-    self.file = open('MIF.csv', 'w', newline='', encoding='utf-8')
-    self.writer = csv.writer(self.file)
-    self.writer.writerow(['Название', 'Автор','Цена со скидкой', 'Цена без скидки', 'Ссылка', 'Картинка'])    
-
-  def close_spider(self, spider):
-    self.file.close()
-
-  def process_item(self, item, spider):
-    self.writer.writerow([item['name'], item['author'], item['discountedprice'], item['fullprice'], item['link'], item['image']])
-    return item
-
 class MIFSpider(scrapy.Spider):
   name = "mann-ivanov-ferber parser"
   start_urls = ['https://www.mann-ivanov-ferber.ru/catalog/']
@@ -23,9 +10,14 @@ class MIFSpider(scrapy.Spider):
       'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
       'DOWNLOAD_DELAY': 1,
       'ITEM_PIPELINES': {
-        'mif.MIFPipeline': 300,
+        'parser.CSVPipeline': 300,
       }
   }
+
+  def set_pipeline(pipeline_name):
+    MIFSpider.custom_settings['ITEM_PIPELINES'] = {
+        pipeline_name: 300,
+    }
 
   def parse(self, response):
     selector = '.sc-724e57a8-0 .sc-62bfb586-0'
