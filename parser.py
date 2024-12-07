@@ -22,6 +22,9 @@ class DBPipeline:
       Book(name = item['name'],
             price = item['discountedprice'],
             # rating = livelibbook.rating
+            link = item['link'],
+            image_link = item['image'],
+            website_name = item['websitename']
             ),
             # genres= livelibbook.tags,
             genres = ["Фантастика"],

@@ -53,5 +53,6 @@ class CGSpider(scrapy.Spider):
         item['discountedprice'] = item['fullprice']
       item['link'] = "chitai-gorod.ru/" + links[0]['href']
       parsed += 1
+      item['websitename'] = "chitay-gorod"
       yield item
     print(f"sucessfuly parsed {parsed} books")
