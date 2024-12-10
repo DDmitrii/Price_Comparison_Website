@@ -271,5 +271,9 @@ class DataBase:
 if __name__ == "__main__":
     # Создаем базу данных
     # "sqlite:///books.db" в виде файлика на компе
-    # "postgresql://user:password@localhost:5432/books_db" дб на докере docker
+    
+    # "postgresql://user:password@localhost:5432/books_db" дб на докере, 
+    # аккуратней prometheus работает по node_exporter,
+    # поэтому IP в prometheus.yml придется поменять
+     
     db = DataBase("sqlite:///books.db")

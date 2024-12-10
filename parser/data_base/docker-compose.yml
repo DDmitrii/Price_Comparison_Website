@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3"
 services:
   db:
     image: postgres:13
@@ -14,21 +14,45 @@ services:
     networks:
       - books_network
 
-  # bot:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: telegram_bot_container
-  #   environment:
-  #     - BOT_TOKEN=7828869023:AAHv5nHMayfWrHgBxM2u4uI7G5-hHN6JSK8
-  #     - DB_URL=postgresql://user:password@db:5432/books_db
-  #   depends_on:
-  #     - db
-  #   networks:
-  #     - books_network
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - books_network
+    depends_on:
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - books_network
+
+  node-exporter:
+    image: prom/node-exporter
+    container_name: node_exporter
+    ports:
+      - "9323:9323"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - books_network
 
 volumes:
   pg_data:
+  prometheus_data:
+  grafana_data:
 
 networks:
   books_network:
